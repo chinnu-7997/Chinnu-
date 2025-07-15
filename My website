@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chinnu's Teddy Bear Store</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff0f5;
+    }
+    header {
+      background-color: #ff69b4;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 2rem;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+    .product {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .product img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .product h3 {
+      color: #ff1493;
+      margin-top: 0.5rem;
+    }
+    .product p {
+      color: #444;
+      font-weight: bold;
+    }
+    .product button {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .product button:hover {
+      background-color: #ff85c1;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #ff69b4;
+      color: white;
+      margin-top: 2rem;
+    }
+
+    /* Modal Styling */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .modal-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .close {
+      float: right;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .cod-form input {
+      padding: 8px;
+      margin: 5px 0;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .cod-form button {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    🧸 Welcome to Chinnu's Teddy Bear Store 🧸
+  </header>
+
+  <div class="products">
+    <!-- Example Product (Repeat as needed) -->
+    <div class="product">
+      <img src="Teddy1.jpg" alt="Pink Teddy">
+      <h3>Pink Teddy</h3>
+      <p>₹299 – Free Delivery</p>
+      <button onclick="openModal('Pink Teddy', 299)">Buy Now</button>
+    </div>
+    <!-- Add other products here in same format -->
+  </div>
+
+  <!-- Modal Popup -->
+  <div class="modal" id="buyModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3 id="itemTitle"></h3>
+      <p>Choose your payment method:</p>
+
+      <!-- UPI Payment -->
+      <p><strong>📲 Pay via PhonePe/GPay:</strong><br> Send ₹<span id="itemPrice"></span> to <b>7842718254@paytm</b></p>
+      <p>After payment, click below:</p>
+
+      <!-- WhatsApp Button -->
+      <a id="whatsappBtn" target="_blank">
+        <button>Order via WhatsApp</button>
+      </a>
+
+      <hr>
+
+      <!-- COD Form -->
+      <h4>Or Cash on Delivery</h4>
+      <form class="cod-form" onsubmit="submitCOD(event)">
+        <input type="text" placeholder="Your Name" required />
+        <input type="text" placeholder="Full Address" required />
+        <input type="tel" placeholder="Phone Number" required />
+        <button type="submit">Place Order</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    Made with 💖 by Chinnu | © 2025
+  </footer>
+
+  <script>
+    let modal = document.getElementById("buyModal");
+    let itemTitle = document.getElementById("itemTitle");
+    let itemPrice = document.getElementById("itemPrice");
+    let whatsappBtn = document.getElementById("whatsappBtn");
+
+    function openModal(product, price) {
+      modal.style.display = "block";
+      itemTitle.innerText = product;
+      itemPrice.innerText = price;
+
+      // WhatsApp message link
+      const message = `Hello! I want to order *${product}* for ₹${price}. Please confirm the order.`;
+      whatsappBtn.href = `https://wa.me/91842718254?text=${encodeURIComponent(message)}`;
+    }
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
+
+    function submitCOD(event) {
+      event.preventDefault();
+      alert("Your Cash on Delivery order has been placed! 🧸");
+      closeModal();
+    }
+
+    // Close modal if clicked outside
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        closeModal();
+      }
+    };
+  </script>
+
+</body>
+</html>
